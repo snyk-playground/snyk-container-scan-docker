@@ -20,7 +20,7 @@ def main(docker_image_to_test, cfcr_account="", cf_user_name="", cf_login_token=
     snyk_org = os.getenv('SNYK_ORG')
 
     docker_command="docker pull "+docker_image_to_test;
-    if cf_account!= "":
+    if cfcr_account!= "":
         docker_login="docker login r.cfcr.io -u "+cf_user_name+" -p "+cf_login_token
         proc = subprocess.Popen(docker_command, shell=True)
         out, err = proc.communicate()
