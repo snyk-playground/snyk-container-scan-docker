@@ -12,10 +12,6 @@ def main(docker_image_to_test):
     # out, err = proc.communicate()
     # docker_image_id = out.decode("utf-8").strip('\n')
 
-    if cfcr_account != "" and (cf_user_name == "" or cf_login_token == ""):
-        raise ValueError('If logging in codefresh registry, you must provide username and login token')
-        sys.exit(1)
-
     snyk_token = os.getenv('SNYK_TOKEN')
     snyk_org = os.getenv('SNYK_ORG')
     cfcr_account=os.getenv('CFCR_ACCOUNT')
@@ -23,6 +19,10 @@ def main(docker_image_to_test):
     cf_login_token=os.getenv('CF_LOGIN_TOKEN')
 
     docker_image_name=docker_image_to_test
+
+    if cfcr_account != "" and (cf_user_name == "" or cf_login_token == ""):
+        raise ValueError('If logging in codefresh registry, you must provide username and login token')
+        sys.exit(1)
 
     docker_command="docker pull "+docker_image_to_test;
     if cfcr_account!= "":
