@@ -50,7 +50,7 @@ def main(docker_image_to_test):
 
     # Concatenate snykcli executable with options from pipeline variables
     snykcli_exec = ' '\
-    .join([snykcli_base_command, docker_image_to_test, snykcli_org_option])
+    .join([snykcli_base_command, docker_image_name, snykcli_org_option])
 
     proc = subprocess.Popen(snykcli_exec, shell=True)
     stdout = proc.communicate()
