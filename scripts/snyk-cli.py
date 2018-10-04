@@ -16,21 +16,19 @@ def main(docker_image_to_test):
     snyk_org = os.getenv('SNYK_ORG')
     cfcr_account=os.getenv('CFCR_ACCOUNT')
     cf_user_name=os.getenv('CF_USER_NAME')
-    cf_login_token=os.getenv('CF_LOGIN_TOKEN')
+    CFCR_LOGIN_TOKEN=os.getenv('CFCR_LOGIN_TOKEN')
 
-    print(cfcr_account)
-    print(cf_user_name)
-    print(cf_login_token)
+
 
     docker_image_name=docker_image_to_test
 
-    if cfcr_account != "" and (cf_user_name == "" or cf_login_token == ""):
+    if cfcr_account != "" and (cf_user_name == "" or CFCR_LOGIN_TOKEN == ""):
         raise ValueError('If logging in codefresh registry, you must provide username and login token')
         sys.exit(1)
 
     docker_command="docker pull "+docker_image_to_test;
     if cfcr_account!= "":
-        docker_login="docker login r.cfcr.io -u "+cf_user_name+" -p "+cf_login_token
+        docker_login="docker login r.cfcr.io -u "+cf_user_name+" -p "+CFCR_LOGIN_TOKEN
         proc = subprocess.Popen(docker_login, shell=True)
         out, err = proc.communicate()
         docker_command="docker pull r.cfcr.io/"+cfcr_account+"/"+docker_image_to_test;
