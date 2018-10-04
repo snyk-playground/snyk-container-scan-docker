@@ -18,6 +18,10 @@ def main(docker_image_to_test):
     cf_user_name=os.getenv('CF_USER_NAME')
     cf_login_token=os.getenv('CF_LOGIN_TOKEN')
 
+    print(cfcr_account)
+    print(cf_user_name)
+    print(cf_login_token)
+
     docker_image_name=docker_image_to_test
 
     if cfcr_account != "" and (cf_user_name == "" or cf_login_token == ""):
