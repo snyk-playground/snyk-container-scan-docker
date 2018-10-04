@@ -6,7 +6,7 @@ import sys
 import subprocess
 import tarfile
 
-def main(docker_image_to_test, cfcr_account="", cf_user_name="", cf_login_token=""):
+def main(docker_image_to_test):
 
     # proc = subprocess.Popen(docker_command, shell=True, stdout=subprocess.PIPE)
     # out, err = proc.communicate()
@@ -18,6 +18,9 @@ def main(docker_image_to_test, cfcr_account="", cf_user_name="", cf_login_token=
 
     snyk_token = os.getenv('SNYK_TOKEN')
     snyk_org = os.getenv('SNYK_ORG')
+    cfcr_account=os.getenv('CFCR_ACCOUNT')
+    cf_user_name=os.getenv('CF_USER_NAME')
+    cf_login_token=os.getenv('CF_LOGIN_TOKEN')
 
     docker_command="docker pull "+docker_image_to_test;
     if cfcr_account!= "":
