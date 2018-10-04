@@ -6,13 +6,13 @@ import sys
 import subprocess
 import tarfile
 
-def main(docker_image_to_test, cf_account="", cf_user_name="", cf_login_token=""):
+def main(docker_image_to_test, cfcr_account="", cf_user_name="", cf_login_token=""):
 
     # proc = subprocess.Popen(docker_command, shell=True, stdout=subprocess.PIPE)
     # out, err = proc.communicate()
     # docker_image_id = out.decode("utf-8").strip('\n')
 
-    if cf_account != "" && (!cf_user_name || !cf_login_token):
+    if cfcr_account != "" && (!cf_user_name || !cf_login_token):
         raise ValueError('If logging in codefresh registry, you must provide username and login token')
         sys.exit(1)
 
@@ -24,7 +24,7 @@ def main(docker_image_to_test, cf_account="", cf_user_name="", cf_login_token=""
         docker_login="docker login r.cfcr.io -u "+cf_user_name+" -p "+cf_login_token
         proc = subprocess.Popen(docker_command, shell=True)
         out, err = proc.communicate()
-        docker_command="docker pull r.cfcr.io/"+cf_account+"/"+docker_image_to_test;
+        docker_command="docker pull r.cfcr.io/"+cfcr_account+"/"+docker_image_to_test;
 
     proc = subprocess.Popen(docker_command, shell=True)
     out, err = proc.communicate()
