@@ -55,6 +55,22 @@ def main(docker_image_to_test):
     proc = subprocess.Popen(snykcli_exec, shell=True)
     stdout = proc.communicate()
 
+    if proc.returncode == 0:
+        # Monitor snykcli commnad to scan images
+        #snykcli_monitor_command = '/usr/local/bin/snyk-linux test https://github.com/aarlaud-snyk/github-stats'
+        snykcli_monitor_command = 'snyk monitor --docker '
+        snykcli_org_option = ''
+        if snyk_org:
+            snykcli_org_option = ' --org='+snyk_org
+
+        # Concatenate snykcli executable with options from pipeline variables
+        snykcli_exec = ' '\
+        .join([snykcli_monitor_command, docker_image_to_test, snykcli_org_option])
+
+        proc = subprocess.Popen(snykcli_exec, shell=True)
+        stdout = proc.communicate()
+
+
     #
     #
     # # Execute command pipe stdout to variable and pipe to stdout and use for final exit code for threshold support
